@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.8/p5.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.8/addons/p5.dom.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="p5.serialport.js"></script>
+
+  <script type="text/javascript">
+      var text;     // variable for the text div you'll create
+      var socket = new WebSocket("ws://localhost:8081");
+      var portName = '/dev/cu.HC-05-DevB';
+
+      function setup() {
+        serial = new p5.SerialPort();
+        serial.on('data', serialEvent);
+        serial.on('error', serialError);
+        serial.open(portName);           // open a serial port
+        // The socket connection needs two event listeners:
+         socket.onopen = openSocket;
+         socket.onmessage = showData;
+
+         //set up environment
+         createCanvas(windowWidth, windowHeight);
+
+         // make a new div and position it at 10, 10:
+         text = createDiv("Sensor reading:");
+        //  text.position(10,10);
+      }
+
+      function serialEvent() {
+         // read a byte from the serial port:
+         var inByte = serial.read();
+         // store it in a global variable:
+         serialevent = inByte;
+         text(serialevent);
+         console.log("serialevent");
+        }
+
+      function serialError(err) {
+        console.log("error" + err);
+      }
+
+      function draw() {
+        // background(bg);
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+
+      function openSocket() {
+        text.html("Socket open");
+        // socket.send("Hello server");
+      }
+
+      function showData(result) {
+        // when the server returns, show the result in the div:
+        console.log(result);
+        text.html("Sensor reading:" + result.data);
+
+      }
+
+      function mouseClicked(){
+        //if mouse is within
+      }
+
+      function keyPressed() {
+      // if (key >=0 && key <=9) { // if the user presses 0 through 9
+      // outByte = byte(key * 25); // map the key to a range from 0 to 225
+      // }
+      // serial.write(outByte); // send it out the serial port
+        if(key==='H' || key==='L'){
+          serial.write(key);
+          console.log(key);
+        }
+      }
+
+
+
+  </script>
+ <meta charset="utf-8">
+ <title></title>
+ </head>
+ <body>
+
+ </body>
+</html>

@@ -1,0 +1,35 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+}
+
+button {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+  background-color: red;
+  opacity: 0.5;
+  border: 3px solid pink;
+}
+
+button:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.obj-popup {
+  background: #0D48FF;
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 2px 6px 0 rgba(16,22,26,.2);
+  color: #fff;
+  font-size: 14px;
+  word-wrap: break-word;
+  padding: 15px;
+  opacity: 0.95;
+  font-size: 20px;
+  border-radius: 3px;
+}
