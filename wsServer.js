@@ -62,6 +62,7 @@ app.start();
 var myPort = new SerialPort("/dev/cu.HC-05-DevB", serialOptions);
 
 // set up event listeners for the serial events:
+// TODO: need more events => app_one requests User Data
 myPort.on('open', showPortOpen);
 myPort.on('data', sendSerialData);
 myPort.on('close', showPortClose);
@@ -77,6 +78,10 @@ function showPortOpen() {
 function sendSerialData(data) {
   // if there are webSocket connections, send the serial data
   // to all of them:
+
+
+
+
   console.log(data);
   if (connections.length > 0) {
     broadcast(data);
