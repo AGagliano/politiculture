@@ -59,10 +59,17 @@ app.start();
 
 // open the serial port:
 // var myPort = new SerialPort("/dev/cu.usbmodem1411", serialOptions);
-// var myPort = new SerialPort("/dev/cu.HC-05-DevB", serialOptions);
+var myPort = new SerialPort("/dev/cu.HC-05-DevB", serialOptions);
 var myPort2 = new SerialPort("/dev/cu.HC-06-DevB", serialOptions);
 
 // set up event listeners for the serial events:
+// TODO: need more events =>
+  // app_one: 1) requests User Data, 2) requests env_color (average of nearby Users)
+  myPort.on('open', showPortOpen);
+  myPort.on('data', sendSerialData);
+  myPort.on('close', showPortClose);
+  myPort.on('error', showError);
+
 myPort2.on('open', showPortOpen);
 myPort2.on('data', sendSerialData);
 myPort2.on('close', showPortClose);
@@ -72,7 +79,7 @@ myPort2.on('error', showError);
 // ------------------------ Serial event functions:
 // this is called when the serial port is opened:
 function showPortOpen() {
-  // console.log('port open. Data rate: ' + myPort + myPort.options.baudRate);
+  console.log('port open. Data rate: ' + myPort + myPort.options.baudRate);
   console.log('port open. Data rate: ' + myPort2 + myPort2.options.baudRate);
   // ??? why not showing
 }
@@ -104,11 +111,11 @@ function sendToSerial(data) {
   // console.log(myPort);
   // look at data; if data is open or close
 
-  // myPort.write(data);
+  myPort.write(data);
   myPort2.write(data);
 
   // close one of them? myPort is a serial port.
-  // console.log("port1 is: " + myPort.isOpen());
+  console.log("port1 is: " + myPort.isOpen());
   console.log("port2 is: " + myPort2.isOpen());
 }
 

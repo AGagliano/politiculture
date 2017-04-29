@@ -27,12 +27,12 @@ void loop() {
     // read the oldest byte in the serial buffer:
     incomingByte = Serial.read();
     // if it's a capital H (ASCII 72), turn on the LED:
-    if (incomingByte == 'H') {
+    if (incomingByte == 'A') {
       pixels.setPixelColor(0, pixels.Color(0,150,0));
       pixels.show();
     }
     // if it's an L (ASCII 76) turn off the LED:
-    if (incomingByte == 'L') {
+    if (incomingByte == 'B') {
 //      digitalWrite(ledPin, LOW);
       pixels.setPixelColor(0, pixels.Color(0,0,0));
       pixels.show();

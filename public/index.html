@@ -11,17 +11,17 @@
   <script type="text/javascript">
       var text;     // variable for the text div you'll create
       // var socket = new WebSocket("ws://localhost:8081");
-      var socket = new WebSocket("ws://8497e105.ngrok.io"); //8081 ngrok spinup
+      var socket = new WebSocket("ws://88edc436.ngrok.io"); //8081 ngrok spinup
       // var portName = '/dev/cu.HC-06-DevB';
 
       function setup() {
-        // serial = new p5.SerialPort();
+        serial = new p5.SerialPort();
         serial2 = new p5.SerialPort();
-        // serial.on('data', serialEvent);
-        // serial.on('error', serialError);
+        serial.on('data', serialEvent);
+        serial.on('error', serialError);
         serial2.on('data', serialEvent);
         serial2.on('error', serialError);
-        // serial.open("/dev/cu.HC-05-DevB");
+        serial.open("/dev/cu.HC-05-DevB");
         serial2.open("/dev/cu.HC-06-DevB");
 
         createCanvas(windowWidth, windowHeight);
@@ -143,7 +143,8 @@
       // outByte = byte(key * 25); // map the key to a range from 0 to 225
       // }
       // serial.write(outByte); // send it out the serial port
-        if(key==='H' || key==='L'){
+        if(key==='A' || key==='B' || key==='C' || key==='D'){
+          serial.write(key);
           serial2.write(key);
           console.log("hey");
           // console.log(serial);
