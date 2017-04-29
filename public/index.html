@@ -11,25 +11,95 @@
   <script type="text/javascript">
       var text;     // variable for the text div you'll create
       // var socket = new WebSocket("ws://localhost:8081");
-      var socket = new WebSocket("ws://5d748ac6.ngrok.io"); //8081 ngrok spinup
-      var portName = '/dev/cu.HC-05-DevB';
+      var socket = new WebSocket("ws://8497e105.ngrok.io"); //8081 ngrok spinup
+      // var portName = '/dev/cu.HC-06-DevB';
 
       function setup() {
-        serial = new p5.SerialPort();
-        serial.on('data', serialEvent);
-        serial.on('error', serialError);
-        serial.open(portName);           // open a serial port
+        // serial = new p5.SerialPort();
+        serial2 = new p5.SerialPort();
+        // serial.on('data', serialEvent);
+        // serial.on('error', serialError);
+        serial2.on('data', serialEvent);
+        serial2.on('error', serialError);
+        // serial.open("/dev/cu.HC-05-DevB");
+        serial2.open("/dev/cu.HC-06-DevB");
+
+        createCanvas(windowWidth, windowHeight);
+        //
+        // jessica_button = createButton('Jessica');
+        // jessica_button.position(50, 39);
+        // jessica_button.mousePressed(connectJess);
+        //
+        // clark_button = createButton('Clark');
+        // clark_button.position(50, 70);
+        // clark_button.mousePressed(connectClark);
+
+        // serial.open(portName);           // open a serial port
         // The socket connection needs two event listeners:
-         socket.onopen = openSocket;
-         socket.onmessage = showData;
+        //  socket.onopen = openSocket;
+        //  socket.onmessage = showData;
 
          //set up environment
-         createCanvas(windowWidth, windowHeight);
+
+
+
+
+        // choose initial color buttons
+        //
+        // red_button = createButton('Red');
+        // red_button.position(19, 150);
+        // red_button.mousePressed(turnOn);
+        // blue_button = createButton('Blue');
+        // blue_button.position(50, 150);
+        // blue_button.mousePressed(turnOff);
+        // purple_button = createButton('Purple');
+        // purple_button.position(90, 150);
+        // purple_button.mousePressed(turnOff);
+
+        // toggle buttons
+        //
+        // score_button = createButton('Show Self');
+        // score_button.position(19, 180);
+        //
+        // env_button = createButton('Show Env');
+        // env_button.position(50, 180);
+
 
          // make a new div and position it at 10, 10:
          text = createDiv("Sensor reading:");
         //  text.position(10,10);
       }
+
+      function connectJess(){
+        console.log("Jess Serial Port");
+        serial2.close(portClose);
+        serial.open("/dev/cu.HC-05-DevB");
+        // socket.onopen = openSocket;
+        // socket.onmessage = showData;
+      }
+      function connectClark(){
+        console.log("Clark Serial Port");
+        serial.close(portClose)
+        serial2.open("/dev/cu.HC-06-DevB");
+
+        // socket.onopen = openSocket;
+        // socket.onmessage = showData;
+      }
+
+      function portClose() {
+        console.log("port closed!!!!!!")
+      }
+
+      function turnOn(){
+        serial.write('H');
+
+      }
+
+      function turnOff(){
+        serial.write('L');
+      }
+
+
 
       function serialEvent() {
          // read a byte from the serial port:
@@ -74,18 +144,23 @@
       // }
       // serial.write(outByte); // send it out the serial port
         if(key==='H' || key==='L'){
-          serial.write(key);
+          serial2.write(key);
+          console.log("hey");
+          // console.log(serial);
+          console.log(serial2);
           console.log(key);
         }
       }
 
-
-
   </script>
+
+
  <meta charset="utf-8">
- <title></title>
+ <title>Politiculture</title>
  </head>
  <body>
+   <p> Welcome to Politiculture</p>
+
 
  </body>
 </html>

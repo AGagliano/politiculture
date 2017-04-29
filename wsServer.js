@@ -59,19 +59,22 @@ app.start();
 
 // open the serial port:
 // var myPort = new SerialPort("/dev/cu.usbmodem1411", serialOptions);
-var myPort = new SerialPort("/dev/cu.HC-05-DevB", serialOptions);
+// var myPort = new SerialPort("/dev/cu.HC-05-DevB", serialOptions);
+var myPort2 = new SerialPort("/dev/cu.HC-06-DevB", serialOptions);
 
 // set up event listeners for the serial events:
-// TODO: need more events => app_one requests User Data
-myPort.on('open', showPortOpen);
-myPort.on('data', sendSerialData);
-myPort.on('close', showPortClose);
-myPort.on('error', showError);
+myPort2.on('open', showPortOpen);
+myPort2.on('data', sendSerialData);
+myPort2.on('close', showPortClose);
+myPort2.on('error', showError);
+
 
 // ------------------------ Serial event functions:
 // this is called when the serial port is opened:
 function showPortOpen() {
-  console.log('port open. Data rate: ' + myPort.options.baudRate);
+  // console.log('port open. Data rate: ' + myPort + myPort.options.baudRate);
+  console.log('port open. Data rate: ' + myPort2 + myPort2.options.baudRate);
+  // ??? why not showing
 }
 
 // this is called when new data comes into the serial port:
@@ -79,11 +82,11 @@ function sendSerialData(data) {
   // if there are webSocket connections, send the serial data
   // to all of them:
 
+  // TODO: customize this, and add more event driven callback functions
 
-
-
-  console.log(data);
+  console.log("fdsfs" + data);
   if (connections.length > 0) {
+    console.log(connections.length);
     broadcast(data);
   }
 }
@@ -98,7 +101,15 @@ function showError(error) {
 
 function sendToSerial(data) {
   console.log("sending to serial: " + data);
-  myPort.write(data);
+  // console.log(myPort);
+  // look at data; if data is open or close
+
+  // myPort.write(data);
+  myPort2.write(data);
+
+  // close one of them? myPort is a serial port.
+  // console.log("port1 is: " + myPort.isOpen());
+  console.log("port2 is: " + myPort2.isOpen());
 }
 
 // ------------------------ webSocket Server event functions
@@ -116,6 +127,7 @@ function handleConnection(client) {
     connections.splice(position, 1);        // and delete it from the array
   });
 }
+
 // This function broadcasts messages to all webSocket clients
 function broadcast(data) {
   for (c in connections) {     // iterate over the array of connections
