@@ -91,9 +91,9 @@ function sendSerialData(data) {
 
   // TODO: customize this, and add more event driven callback functions
 
-  console.log("fdsfs" + data);
+  // console.log("fdsfs" + data);
   if (connections.length > 0) {
-    console.log(connections.length);
+    // console.log(connections.length);
     broadcast(data);
   }
 }

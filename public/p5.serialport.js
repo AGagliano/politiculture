@@ -79,7 +79,7 @@
 
     try {
       // this.socket = new WebSocket("ws://" + this.hostname + ":" + this.serverport);
-      this.socket = new WebSocket("ws://88edc436.ngrok.io"); //this is the server (8081)
+      this.socket = new WebSocket("ws://fb311ebc.ngrok.io"); //this is the server (8081)
       console.log(("ws://" + this.hostname + ":" + this.serverport));
     } catch (err) {
       //console.log(err + "\n" + "Is the p5.serialserver running?");

@@ -37,8 +37,9 @@ void loop() {
         }
         pixels.show();
         Serial1.println("None");
+    }
 
-    if (incomingByte == 'a') {
+    if (incomingByte == 'A') {
         for (int i = 0; i < NUMPIXELS; i++) {
           pixels.setPixelColor(i, pixels.Color(255,0,0));
         }
@@ -46,7 +47,7 @@ void loop() {
         Serial1.println("Red");
     }
     // if it's an L (ASCII 76) turn off the LED:
-    if (incomingByte == 's') {
+    if (incomingByte == 'S') {
 
         for (int i = 0; i < NUMPIXELS; i++) {
           pixels.setPixelColor(i, pixels.Color(0,0,255));
@@ -56,7 +57,7 @@ void loop() {
       Serial1.println("BLUE");
     }
 
-    if (incomingByte == 'd') {
+    if (incomingByte == 'D') {
         for (int i = 0; i < NUMPIXELS; i++) {
             pixels.setPixelColor(i, pixels.Color(128,0,128));
 
@@ -65,4 +66,4 @@ void loop() {
       Serial1.println("PURPLE");
     }
   }
-}
+

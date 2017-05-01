@@ -11,8 +11,10 @@
   <script type="text/javascript">
       var text;     // variable for the text div you'll create
       // var socket = new WebSocket("ws://localhost:8081");
-      var socket = new WebSocket("ws://88edc436.ngrok.io"); //8081 ngrok spinup
+      var socket = new WebSocket("ws://fb311ebc.ngrok.io"); //8081 ngrok spinup
       // var portName = '/dev/cu.HC-06-DevB';
+
+      var jessica_button;
 
       function setup() {
         serial = new p5.SerialPort();
@@ -26,13 +28,32 @@
 
         createCanvas(windowWidth, windowHeight);
         //
-        // jessica_button = createButton('Jessica');
-        // jessica_button.position(50, 39);
-        // jessica_button.mousePressed(connectJess);
+        jessica_button = createButton('Jessica');
+        jessica_button.position(50, 39);
+        jessica_button.mousePressed(connectJess);
         //
-        // clark_button = createButton('Clark');
-        // clark_button.position(50, 70);
-        // clark_button.mousePressed(connectClark);
+        clark_button = createButton('Clark');
+        clark_button.position(50, 70);
+        clark_button.mousePressed(connectClark);
+
+        btn_liberal_jess = createButton('Liberal');
+        btn_conservative_jess = createButton('Conservative');
+        btn_liberal_jess.position(80, 39);
+        btn_conservative_jess.position(80, 70);
+        btn_liberal_jess.hide();
+        btn_conservative_jess.hide();
+
+        btn_liberal_clark = createButton('Liberal');
+        btn_conservative_clark = createButton('Conservative');
+        btn_liberal_clark.position(80, 39);
+        btn_conservative_clark.position(80, 70);
+        btn_liberal_clark.hide();
+        btn_conservative_clark.hide();
+
+        btn_liberal_jess.mousePressed(triggerJL);
+        btn_conservative_jess.mousePressed(triggerJC)
+        btn_liberal_clark.mousePressed(triggerCL);
+        btn_conservative_clark.mousePressed(triggerCC)
 
         // serial.open(portName);           // open a serial port
         // The socket connection needs two event listeners:
@@ -71,32 +92,47 @@
       }
 
       function connectJess(){
-        console.log("Jess Serial Port");
-        serial2.close(portClose);
-        serial.open("/dev/cu.HC-05-DevB");
-        // socket.onopen = openSocket;
-        // socket.onmessage = showData;
-      }
-      function connectClark(){
-        console.log("Clark Serial Port");
-        serial.close(portClose)
-        serial2.open("/dev/cu.HC-06-DevB");
+        jessica_button.hide();
+        clark_button.hide();
+        btn_liberal_jess.show();
+        btn_conservative_jess.show();
 
-        // socket.onopen = openSocket;
-        // socket.onmessage = showData;
+      }
+
+      function connectClark(){
+        clark_button.hide();
+        jessica_button.hide();
+        btn_liberal_clark.show();
+        btn_conservative_clark.show();
+
       }
 
       function portClose() {
         console.log("port closed!!!!!!")
       }
 
-      function turnOn(){
-        serial.write('H');
-
+      function triggerJL(){
+        serial.write('A');
+        serial2.write('A');
+        console.log('A');
       }
 
-      function turnOff(){
-        serial.write('L');
+      function triggerJC(){
+        serial.write('S');
+        serial2.write('S');
+        console.log('S');
+      }
+
+      function triggerCL(){
+        serial.write('C');
+        serial2.write('C');
+        console.log('C');
+      }
+
+      function triggerCC(){
+        serial.write('D');
+        serial2.write('D');
+        console.log('D');
       }
 
 
@@ -143,12 +179,12 @@
       // outByte = byte(key * 25); // map the key to a range from 0 to 225
       // }
       // serial.write(outByte); // send it out the serial port
-        if(key==='A' || key==='B' || key==='C' || key==='D'){
+        if(key==='A' || key==='S' || key==='D' || key==='0'){
           serial.write(key);
           serial2.write(key);
           console.log("hey");
           // console.log(serial);
-          console.log(serial2);
+          // console.log(serial2);
           console.log(key);
         }
       }
